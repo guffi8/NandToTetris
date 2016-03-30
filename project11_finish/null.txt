@@ -1,0 +1,335 @@
+--------------------------------------------- MainFruit ------------------------------------------------
+Fruit.getLetter
+Fruit.isBomb
+Fruit.getLetter
+Fruit.draw
+Fruit.isBomb
+--------------------------------------------- Main ------------------------------------------------
+Fruit.getLetter
+Fruit.getLetter
+Fruit.getLetter
+Fruit.isBomb
+Fruit.getLetter
+Fruit.draw
+Fruit.isBomb
+--------------------------------------------- YMain ------------------------------------------------
+String.appendChar
+String.appendChar
+String.appendChar
+String.appendChar
+String.appendChar
+String.length
+String.charAt
+String.intValue
+String.intValue
+--------------------------------------------- Log ------------------------------------------------
+--------------------------------------------- Random ------------------------------------------------
+--------------------------------------------- Frog ------------------------------------------------
+--------------------------------------------- Cannon ------------------------------------------------
+--------------------------------------------- Screen ------------------------------------------------
+--------------------------------------------- Array ------------------------------------------------
+--------------------------------------------- Problem ------------------------------------------------
+Fruit.getLetter
+Fruit.getLetter
+--------------------------------------------- PlatformsGenerator ------------------------------------------------
+RandomNumbersGenerator.generateRandomNumber
+RandomNumbersGenerator.generateRandomNumber
+--------------------------------------------- Square ------------------------------------------------
+--------------------------------------------- try1 ------------------------------------------------
+--------------------------------------------- Platform ------------------------------------------------
+--------------------------------------------- Memory ------------------------------------------------
+--------------------------------------------- YGameMain ------------------------------------------------
+--------------------------------------------- SlowAppender ------------------------------------------------
+--------------------------------------------- Utils ------------------------------------------------
+--------------------------------------------- CaveShooterMain ------------------------------------------------
+--------------------------------------------- SquareGame ------------------------------------------------
+--------------------------------------------- CaveShooterBall ------------------------------------------------
+SlowAppender.getIntValue
+SlowAppender.getIntValue
+SlowAppender.getIntValue
+SlowAppender.getIntValue
+SlowAppender.getIntValue
+SlowAppender.getIntValue
+--------------------------------------------- Fruit ------------------------------------------------
+--------------------------------------------- PlatformsList ------------------------------------------------
+Platform.hasNext
+Platform.getNext
+Platform.hasNext
+Platform.getNext
+Platform.hasNext
+Platform.isOnPlatform
+Platform.getNext
+--------------------------------------------- Keyboard ------------------------------------------------
+String.intValue
+--------------------------------------------- RapidRollGame ------------------------------------------------
+RandomNumbersGenerator.modulo
+RandomNumbersGenerator.generateRandomNumber
+RandomNumbersGenerator.modulo
+PlatformsGenerator.generatePlatform
+PlatformsList.isOnPlatform
+--------------------------------------------- Sys ------------------------------------------------
+--------------------------------------------- Fly ------------------------------------------------
+--------------------------------------------- Ball ------------------------------------------------
+RapidRollGame.getPlatformsList
+RapidRollGame.isOnPlatform
+--------------------------------------------- RandomNumbersGenerator ------------------------------------------------
+--------------------------------------------- Math ------------------------------------------------
+--------------------------------------------- GameControl ------------------------------------------------
+Surface.getCannonPosX
+Surface.getCannonPosY
+Surface.getCannonPosX
+Surface.getCannonPosY
+Cannon.isDead
+Cannon.isDead
+Ball.isReachedEdge
+Ball.getX
+Ball.getY
+Surface.isHitBuilding
+Ball.getX
+Ball.getY
+Ball.getX
+Ball.getY
+Cannon.getDamageRadius
+Cannon.damageInflicted
+Ball.getX
+Ball.getY
+Cannon.getDamageRadius
+Cannon.damageInflicted
+Cannon.getLife
+Cannon.getLife
+Cannon.getX
+Cannon.getY
+Cannon.getX
+Cannon.getY
+--------------------------------------------- try2 ------------------------------------------------
+--------------------------------------------- FrogGame ------------------------------------------------
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Frog.y
+Log.isFrogOnLog
+Frog.x
+Fly.x
+Frog.y
+Fly.y
+Frog.x
+Fly.x
+Frog.y
+Fly.y
+--------------------------------------------- simpleCommentTest ------------------------------------------------
+--------------------------------------------- in3 ------------------------------------------------
+Cell.getNext
+Cell.getY
+Cell.getX
+Cell.getY
+Cell.getNext
+Cell.getY
+Cell.getX
+Cell.getY
+Cell.getNext
+Cell.getX
+Cell.getX
+Cell.getY
+Cell.getNext
+Cell.getX
+Cell.getX
+Cell.getY
+Cell.getNext
+Cell.getX
+Cell.getX
+Cell.getY
+Cell.getY
+Cell.getNext
+Cell.getNext
+Cell.getX
+Cell.getX
+Cell.getSize
+Cell.getX
+Cell.getSize
+Cell.getX
+Cell.getY
+Cell.getY
+Cell.getSize
+Cell.getY
+Cell.getSize
+Cell.getY
+--------------------------------------------- Surface ------------------------------------------------
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+Comparison ended successfully
+start compilation
+compilation finished
+generate .vm to the folder : mustPassFiles
+generate .vm to the folder : hardFiles
+
+Test the folder : mustPassFiles
+
+compare : Array.vm
+compare : ArrayA.vm
+compare : Ball.vm
+compare : BallA.vm
+compare : Cannon.vm
+compare : CannonA.vm
+compare : CaveShooterBall.vm
+compare : CaveShooterBallA.vm
+compare : CaveShooterMain.vm
+compare : CaveShooterMainA.vm
+compare : Fly.vm
+compare : FlyA.vm
+compare : Frog.vm
+compare : FrogA.vm
+compare : Fruit.vm
+compare : FruitA.vm
+compare : Keyboard.vm
+compare : KeyboardA.vm
+compare : Log.vm
+compare : LogA.vm
+compare : Main.vm
+compare : MainA.vm
+compare : MainB.vm
+compare : MainFruit.vm
+compare : MainFruitA.vm
+compare : Math.vm
+compare : MathA.vm
+compare : Memory.vm
+compare : MemoryA.vm
+compare : Platform.vm
+compare : PlatformA.vm
+compare : PlatformsGenerator.vm
+compare : PlatformsGeneratorA.vm
+compare : PlatformsList.vm
+compare : PlatformsListA.vm
+compare : Problem.vm
+compare : ProblemA.vm
+compare : Random.vm
+compare : RandomA.vm
+compare : RandomNumbersGenerator.vm
+compare : RandomNumbersGeneratorA.vm
+compare : RapidRollGame.vm
+compare : RapidRollGameA.vm
+compare : Screen.vm
+compare : ScreenA.vm
+compare : SlowAppender.vm
+compare : SlowAppenderA.vm
+compare : Square.vm
+compare : SquareA.vm
+compare : SquareGame.vm
+compare : SquareGameA.vm
+compare : Sys.vm
+compare : SysA.vm
+compare : Utils.vm
+compare : UtilsA.vm
+compare : YGameMain.vm
+compare : YGameMainA.vm
+compare : YMain.vm
+compare : YMainA.vm
+compare : try1.vm
+compare : try1A.vm
+
+Test the folder : hardFiles
+
+compare : FrogGame.vm
+compare : FrogGameA.vm
+compare : GameControl.vm
+compare : GameControlA.vm
+compare : Surface.vm
+compare : SurfaceA.vm
+compare : in3.vm
+compare : in3A.vm
+compare : simpleCommentTest.vm
+compare : simpleCommentTestA.vm
+compare : try2.vm
+compare : try2A.vm
+
+-------------------------------------------------------------------------
+Some tests are faild : 
+	folder : mustPassFiles, file : Array.vm
+	folder : mustPassFiles, file : Ball.vm
+	folder : mustPassFiles, file : Cannon.vm
+	folder : mustPassFiles, file : CaveShooterBall.vm
+	folder : mustPassFiles, file : CaveShooterMain.vm
+	folder : mustPassFiles, file : Fly.vm
+	folder : mustPassFiles, file : Frog.vm
+	folder : mustPassFiles, file : Fruit.vm
+	folder : mustPassFiles, file : Keyboard.vm
+	folder : mustPassFiles, file : Log.vm
+	folder : mustPassFiles, file : Main.vm
+	folder : mustPassFiles, file : MainFruit.vm
+	folder : mustPassFiles, file : Math.vm
+	folder : mustPassFiles, file : Memory.vm
+	folder : mustPassFiles, file : PlatformsGenerator.vm
+	folder : mustPassFiles, file : PlatformsList.vm
+	folder : mustPassFiles, file : Problem.vm
+	folder : mustPassFiles, file : Random.vm
+	folder : mustPassFiles, file : RandomNumbersGenerator.vm
+	folder : mustPassFiles, file : RapidRollGame.vm
+	folder : mustPassFiles, file : Screen.vm
+	folder : mustPassFiles, file : SlowAppender.vm
+	folder : mustPassFiles, file : Square.vm
+	folder : mustPassFiles, file : SquareGame.vm
+	folder : mustPassFiles, file : Sys.vm
+	folder : mustPassFiles, file : Utils.vm
+	folder : mustPassFiles, file : YGameMain.vm
+	folder : mustPassFiles, file : YMain.vm
+	folder : hardFiles, file : FrogGame.vm
+	folder : hardFiles, file : GameControl.vm
+	folder : hardFiles, file : Surface.vm
+	folder : hardFiles, file : in3.vm
+	folder : hardFiles, file : simpleCommentTest.vm
+	folder : hardFiles, file : try2.vm
+-------------------------------------------------------------------------

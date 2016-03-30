@@ -1,0 +1,32 @@
+yuval1488, guffi
+===============================================================================
+Yuval Shavit, 
+Eric Gofman,  
+===============================================================================
+
+                          Project 12 - Operating System
+                          -----------------------------
+  
+
+Submitted Files
+---------------
+README - This file.
+Memory.jack - Memory operations library.
+Array.jack - Represents an array. Can be used to hold any type of object.
+Keyboard.jack - A library for handling user input from the keyboard.
+Math.jack - A basic math library.
+Output.jack - Handles writing characters to the screen.
+Screen.jack - Graphic screen library.
+String.jack - Represents a String object. Implements the String type.
+Sys.jack - A library of basic system services.
+
+Remarks
+-------
+
+In Math.jack libary we add 3 more functions:
+[1] shiftRight - Shifting right given number to for given bits. 
+[2] shiftLeft - Shifting left given number to for given bits.
+[3] bit - Getting a number and index i and return true if the i's bit of the 
+	given number is 1, false otherwise.
+	
+	

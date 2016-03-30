@@ -1,0 +1,26 @@
+yuval1488, guffi
+===============================================================================
+Yuval Shavit,
+Eric Gofman,
+===============================================================================
+
+                  Project 8 - Virtual Machine II - Program Control
+                  ------------------------------------------------ 
+  
+
+Submitted Files
+---------------
+README - This file.
+Makefile - Compile the program.
+CodeWriter.java - Translates VM commands into Hack assembly code.
+Parser.java - Handles the parsing of a single .vm file, and encapsulates access to the 
+	input code. It reads VM commands, parses them, and provides convenient access 
+	to their components. In addition, it removes all white space and comments.
+VMtranslator.java - The main program. Get file/directory path and translate the .vm 
+	file/s to .asm file.
+VMtranslator - The script that run the program.
+
+Remarks
+-------
+We choose to implement this project in java using the recommended API from the course's 
+book.

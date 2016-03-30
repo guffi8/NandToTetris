@@ -1,0 +1,42 @@
+CHIP Mul{
+    IN a[16], b[16];
+    OUT out[16];
+
+    PARTS:
+    Mux16(a[0..15] = false, b = a, sel = b[0], out = out0);
+    Mux16(a[0..15] = false, b = a, sel = b[1], out[0..14] = out1);
+    Mux16(a[0..15] = false, b = a, sel = b[2], out[0..13] = out2);
+    Mux16(a[0..15] = false, b = a, sel = b[3], out[0..12] = out3);
+    Mux16(a[0..15] = false, b = a, sel = b[4], out[0..11] = out4);
+    Mux16(a[0..15] = false, b = a, sel = b[5], out[0..10] = out5);
+    Mux16(a[0..15] = false, b = a, sel = b[6], out[0..9] = out6);
+    Mux16(a[0..15] = false, b = a, sel = b[7], out[0..8] = out7);
+    Mux16(a[0..15] = false, b = a, sel = b[8], out[0..7] = out8);
+    Mux16(a[0..15] = false, b = a, sel = b[9], out[0..6] = out9);
+    Mux16(a[0..15] = false, b = a, sel = b[10], out[0..5] = out10);
+    Mux16(a[0..15] = false, b = a, sel = b[11], out[0..4] = out11);
+    Mux16(a[0..15] = false, b = a, sel = b[12], out[0..3] = out12);
+    Mux16(a[0..15] = false, b = a, sel = b[13], out[0..2] = out13);
+    Mux16(a[0..15] = false, b = a, sel = b[14], out[0..1] = out14);
+    Mux16(a[0..15] = false, b = a, sel = b[15], out[0] = out15);
+
+
+    // Sum:
+    Add16(a = out0, b[0] = false, b[1..15] = out1, out = sum1);
+    Add16(a = sum1, b[0..1] = false, b[2..15] = out2, out = sum2);
+    Add16(a = sum2, b[0..2] = false, b[3..15] = out3, out = sum3);
+    Add16(a = sum3, b[0..3] = false, b[4..15] = out4, out = sum4);
+    Add16(a = sum4, b[0..4] = false, b[5..15] = out5, out = sum5);
+    Add16(a = sum5, b[0..5] = false, b[6..15] = out6, out = sum6);
+    Add16(a = sum6, b[0..6] = false, b[7..15] = out7, out = sum7);
+    Add16(a = sum7, b[0..7] = false, b[8..15] = out8, out = sum8);
+    Add16(a = sum8, b[0..8] = false, b[9..15] = out9, out = sum9);
+    Add16(a = sum9, b[0..9] = false, b[10..15] = out10, out = sum10);
+    Add16(a = sum10, b[0..10] = false, b[11..15] = out11, out = sum11);
+    Add16(a = sum11, b[0..11] = false, b[12..15] = out12, out = sum12);
+    Add16(a = sum12, b[0..12] = false, b[13..15] = out13, out = sum13);
+    Add16(a = sum13, b[0..13] = false, b[14..15] = out14, out = sum14);
+    Add16(a = sum14, b[0..14] = false, b[15] = out15, out = out);
+
+
+}

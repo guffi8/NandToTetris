@@ -1,0 +1,98 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * Memory operations library.
+ */ 
+class Memory {
+	
+	
+	static int ramLow;
+	static int ramHigh;
+	static int NEXT_BLOCK, BLOCK_LENGTH;
+	static Array memory;
+	static Array freeList; 
+
+
+	
+    /** Initializes memory parameters. */
+    function void init() {
+		
+		
+		let ramLow = 2048;
+		let ramHigh = 16383;
+		let memory = 0;
+		let NEXT_BLOCK = 1;
+		let BLOCK_LENGTH = 0;
+		let freeList = ramLow;
+		let freeList[BLOCK_LENGTH] = -1;
+		let freeList[NEXT_BLOCK] = 2050;
+		
+		let freeList[(NEXT_BLOCK + 1)] = 14333; // ramHigh - ramLow - 2
+		let freeList[(NEXT_BLOCK + 2)] = null;
+		
+		return;
+    }
+
+    /** Returns the value of the main memory at the given address. */
+    function int peek(int address) {
+		
+		return memory[address]; 
+    }
+
+    /** Sets the value of the main memory at this address
+     *  to the given value. */
+    function void poke(int address, int value) {
+    
+		let memory[address] = value;
+		
+		return; 
+    }
+
+    /** finds and allocates from the heap a memory block of the 
+     *  specified size and returns a reference to its base address. */
+    function int alloc(int size) {
+		
+		var Array traveler, prevBlock, newBlock;
+		
+		let traveler = freeList;
+		while(~(traveler[BLOCK_LENGTH] > size)) {
+		
+			let prevBlock = traveler;
+			let traveler = traveler[NEXT_BLOCK];
+		}
+		if(~(traveler[BLOCK_LENGTH] = (size + 1))) {	
+			let newBlock = prevBlock[NEXT_BLOCK] + size + 1;
+			let newBlock[BLOCK_LENGTH] = traveler[BLOCK_LENGTH] - size - 1;
+			let newBlock[NEXT_BLOCK] = traveler[NEXT_BLOCK];
+			let prevBlock[NEXT_BLOCK] = newBlock; 	
+		} else {
+			let prevBlock[NEXT_BLOCK] = traveler[NEXT_BLOCK];
+		}
+		
+		let traveler[BLOCK_LENGTH] = size + 1;
+		
+		return (traveler + 1);
+		
+    }
+
+    /** De-allocates the given object and frees its space. */
+    function void deAlloc(int object) {
+		
+		var Array traveler, toDeAlloc;
+		
+		let toDeAlloc = object - 1;
+		let toDeAlloc[NEXT_BLOCK] = null;
+		let traveler = freeList;
+		
+		while(~(traveler[NEXT_BLOCK] = null)) {
+			let traveler = traveler[NEXT_BLOCK];
+		}
+		
+		let traveler[NEXT_BLOCK] = toDeAlloc;
+	
+		return;
+    }    
+}

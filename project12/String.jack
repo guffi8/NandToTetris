@@ -1,0 +1,157 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/String.jack
+
+/**
+ * Represents a String object. Implements the String type.
+ */
+class String {
+
+	field Array str;
+	field int length;
+	field int currentLength;
+
+    /** Constructs a new empty String with a maximum length of maxLength. */
+    constructor String new(int maxLength) {
+		
+		var int i;
+		let length = maxLength;
+		let currentLength = 0;
+
+		if(length < 1) {
+			let length = 1;
+		}
+		
+		let str = Array.new(length);	
+		do Math.init();
+		
+		return this;
+    }
+
+    /** De-allocates the string and frees its space. */
+    method void dispose() {
+		do str.dispose();
+		let currentLength = 0;
+		let length = 0;
+		return;
+    }
+
+    /** Returns the current length of this String. */
+    method int length() {
+		return currentLength;
+    }
+
+    /** Returns the character at location j. */
+    method char charAt(int j) {
+		if(~(j < currentLength)) {
+			return 0;
+		}
+		return str[j];
+    }
+
+    /** Sets the j'th character of this string to be c. */
+    method void setCharAt(int j, char c) {
+		let str[j] = c;
+		return;
+    }
+
+    /** Appends the character c to the end of this String.
+     *  Returns this string as the return value. */
+    method String appendChar(char c) {
+		if(~(currentLength = length)) {
+			let str[currentLength] = c;
+			let currentLength = currentLength + 1;
+		}
+		
+		return this;
+    }
+
+    /** Erases the last character from this String. */
+    method void eraseLastChar() {
+		let currentLength = currentLength - 1;
+		return;
+    }
+
+    /** Returns the integer value of this String until the first non
+     *  numeric character. */
+    method int intValue() {
+		var int i;
+		var int sum;
+		var boolean isNeg;
+		let i = 0;
+		let sum = 0;
+		let isNeg = false;
+	
+		if(str[i] = 45) {
+			let isNeg = true;
+			let i = i + 1;
+		}
+		
+		while(i < currentLength) {
+
+			if((str[i] > 46) & (str[i] < 58)) {
+				let sum = Math.multiply(sum, 10) + (str[i] - 48);
+			} else {
+				if(isNeg) {
+					return -sum;
+				}
+				return sum;
+			}
+			let i = i + 1;
+		}
+		
+		if(isNeg) {
+			return -sum;
+		}
+		return sum;
+    }
+	
+	/** Sets this String to hold a representation of the given number. */
+    method void recursiveSetInt(int number) {
+		
+		var int temp;
+		
+		if(number < 10) {
+			do appendChar(number + 48);
+		} else {
+			let temp = Math.divide(number, 10);
+			do recursiveSetInt(temp);
+			do appendChar((number - Math.multiply(temp, 10)) + 48);
+		}
+		return;
+    }
+	
+	
+	
+    /** Sets this String to hold a representation of the given number. */
+    method void setInt(int number) {
+		/*var int temp;*/
+		
+		let currentLength = 0;
+		
+		if(number < 0) {
+			let number = Math.abs(number);
+			do appendChar(45);
+		}
+		
+		do recursiveSetInt(number);
+		
+		return;
+    }
+
+    /** Returns the new line character. */
+    function char newLine() {
+		return 128;
+    }
+
+    /** Returns the backspace character. */
+    function char backSpace() {
+		return 129;
+    }
+
+    /** Returns the double quote (") character. */
+    function char doubleQuote() {
+		return 34;
+    }
+}

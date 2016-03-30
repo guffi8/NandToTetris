@@ -1,0 +1,18 @@
+/**
+ * The Main class initializes a new Snake game and starts it.
+ */ 
+class Main {
+	
+	/** Initializes a new game and starts it. */
+	function void main() {
+
+		var SnakeGame game;
+
+		let game = SnakeGame.new(25, 5);
+		do game.run();
+
+		do game.dispose();
+
+		return;
+	} 
+}
