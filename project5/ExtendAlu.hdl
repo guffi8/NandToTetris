@@ -23,12 +23,12 @@ CHIP ExtendAlu{
      	zy = instruction[3], ny = instruction[2], f = instruction[1], 
 	no = instruction[0], out = regALU, zr = zr1, ng = ng1);
      
-     // Find out in needed to do x*y and do shifting:
+     // Find out if needed to do x*y and do shifting:
      Mul(a = x, b = y, out = xMultY);
-     ShiftRight(in = x, out = xShiftRight); 
-     ShiftRight(in = y, out = yShiftRight);    
-     ShiftLeft(in = x, out = xShiftLeft);
-     ShiftLeft(in = y, out = yShiftLeft);
+     shiftRight(in = x, out = xShiftRight); 
+     shiftRight(in = y, out = yShiftRight);    
+     shiftLeft(in = x, out = xShiftLeft);
+     shiftLeft(in = y, out = yShiftLeft);
 
      Mux16(a = yShiftRight, b = xShiftRight, sel = instruction[4], 
      	out = xOryShiftRight);

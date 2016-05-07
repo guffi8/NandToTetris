@@ -1,0 +1,27 @@
+yuval1488, guffi
+
+
+                          Project 11 - Compilation.
+                          ------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Makefile - Compile the program.
+JackTokenizer.java - Removes all comments and white space from the input stream and 
+	breaks it into Jack-language tokens, as specified by the Jack grammar.
+JackCompiler.java - The main class. Gets the path of the .jack file or directory 
+	with .jack files and generate .vm file for each .jac file.
+CompilationEngine.java - Effects the actual compilation output.
+JackReader.java - Deligate the buffer reader - for handeling with the tab problem.
+IdentifierKind.java - The enum of identifier kinds.
+Segment.java - The enum of the variable segments.
+VMWriter.java - Emits VM commands into a file, encapsulating the VM command syntax.
+SymbolTable.java - rovides a symbol table abstraction.
+JackCompiler - The script that run the program.
+
+Remarks
+-------
+We choose to implement this project in java using the recommended API from the course's 
+book.

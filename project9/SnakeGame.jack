@@ -8,13 +8,25 @@ class SnakeGame {
 	/** The snake */
 	field Snake snake;
 
+	/** The length of the snake */
+	field int length;
+
+	/** The length of the snake */
+	field int width;
+
 	field int gamesNum;
 
 	/** Constructs a new Snake Game. */
-	constructor SnakeGame new(int snakeLength, int snakeWidth) {
-		let snake = Snake.new(snakeLength, snakeWidth);
-		let gamesNum = 0;
+	constructor SnakeGame new() {
+
 		do printTitle();
+		do Output.moveCursor(11,15);
+		let length = Keyboard.readInt("Choose the length of the snake:");
+		do Output.moveCursor(12,15);
+		let width = Keyboard.readInt("Choose the width of the snake:");
+
+		let snake = Snake.new(length, width);
+		let gamesNum = 0;
 
 		return this;
 	}
@@ -22,68 +34,68 @@ class SnakeGame {
 	/** Print the game title. */
 	method void printTitle() {
 		// S
-		do Screen.drawRectangle(20, 20, 80, 30);
-		do Screen.drawRectangle(20, 20, 30, 55);
-		do Screen.drawRectangle(20, 45, 80, 55);
-		do Screen.drawRectangle(70, 45, 80, 80);
-		do Screen.drawRectangle(20, 70, 80, 80);
+		do Screen.drawRectangle(40, 20, 100, 30);
+		do Screen.drawRectangle(40, 20, 50, 55);
+		do Screen.drawRectangle(40, 45, 100, 55);
+		do Screen.drawRectangle(90, 45, 100, 80);
+		do Screen.drawRectangle(40, 70, 100, 80);
 		do Sys.wait(300);
 
 		// N
-		do Screen.drawRectangle(90, 20, 100, 80);
-		do Screen.drawRectangle(90, 20, 100, 30);
-		do Screen.drawRectangle(100, 30, 110, 40);
-		do Screen.drawRectangle(110, 40, 120, 50);
-		do Screen.drawRectangle(120, 50, 130, 60);
-		do Screen.drawRectangle(130, 60, 140, 70);
-		do Screen.drawRectangle(140, 70, 150, 80);
-		do Screen.drawRectangle(140, 20, 150, 80);
+		do Screen.drawRectangle(110, 20, 120, 80);
+		do Screen.drawRectangle(110, 20, 120, 30);
+		do Screen.drawRectangle(120, 30, 130, 40);
+		do Screen.drawRectangle(130, 40, 140, 50);
+		do Screen.drawRectangle(140, 50, 150, 60);
+		do Screen.drawRectangle(150, 60, 160, 70);
+		do Screen.drawRectangle(160, 70, 170, 80);
+		do Screen.drawRectangle(160, 20, 170, 80);
 		do Sys.wait(300);
 
 		// A
-		do Screen.drawRectangle(160, 70, 170, 80);
-		do Screen.drawRectangle(165, 60, 175, 70);
-		do Screen.drawRectangle(170, 50, 180, 60);
-		do Screen.drawRectangle(175, 40, 185, 50);
-		do Screen.drawRectangle(180, 30, 190, 40);
-		do Screen.drawRectangle(185, 20, 195, 30);
-		do Screen.drawRectangle(170, 50, 210, 60);
-		do Screen.drawRectangle(210, 70, 220, 80);
-		do Screen.drawRectangle(205, 60, 215, 70);
-		do Screen.drawRectangle(200, 50, 210, 60);
+		do Screen.drawRectangle(180, 70, 190, 80);
+		do Screen.drawRectangle(185, 60, 195, 70);
+		do Screen.drawRectangle(190, 50, 200, 60);
 		do Screen.drawRectangle(195, 40, 205, 50);
-		do Screen.drawRectangle(190, 30, 200, 40);
+		do Screen.drawRectangle(200, 30, 210, 40);
+		do Screen.drawRectangle(205, 20, 215, 30);
+		do Screen.drawRectangle(190, 50, 230, 60);
+		do Screen.drawRectangle(230, 70, 240, 80);
+		do Screen.drawRectangle(225, 60, 235, 70);
+		do Screen.drawRectangle(220, 50, 230, 60);
+		do Screen.drawRectangle(215, 40, 225, 50);
+		do Screen.drawRectangle(210, 30, 220, 40);
 		do Sys.wait(300);
 
 		// K
-		do Screen.drawRectangle(230, 20, 240, 80);
-		do Screen.drawRectangle(235, 45, 245, 55);
-		do Screen.drawRectangle(245, 35, 255, 45);
-		do Screen.drawRectangle(245, 55, 255, 65);
-		do Screen.drawRectangle(255, 25, 265, 35);
-		do Screen.drawRectangle(255, 65, 265, 75);
-		do Screen.drawRectangle(265, 20, 275, 30);
-		do Screen.drawRectangle(265, 70, 275, 80);
+		do Screen.drawRectangle(250, 20, 260, 80);
+		do Screen.drawRectangle(255, 45, 265, 55);
+		do Screen.drawRectangle(265, 35, 275, 45);
+		do Screen.drawRectangle(265, 55, 275, 65);
+		do Screen.drawRectangle(275, 25, 285, 35);
+		do Screen.drawRectangle(275, 65, 285, 75);
+		do Screen.drawRectangle(285, 20, 295, 30);
+		do Screen.drawRectangle(285, 70, 295, 80);
 		do Sys.wait(300);
 
 		// E
-		do Screen.drawRectangle(290, 20, 300, 80);
-		do Screen.drawRectangle(290, 20, 350, 30);
-		do Screen.drawRectangle(290, 45, 350, 55);
-		do Screen.drawRectangle(290, 70, 350, 80);
+		do Screen.drawRectangle(310, 20, 320, 80);
+		do Screen.drawRectangle(310, 20, 370, 30);
+		do Screen.drawRectangle(310, 45, 370, 55);
+		do Screen.drawRectangle(310, 70, 370, 80);
 		do Sys.wait(300);
 
 		// ! ! !
-		do Screen.drawRectangle(370, 15, 380, 70);
-		do Screen.drawRectangle(370, 75, 380, 85);
-		do Sys.wait(150);
-
 		do Screen.drawRectangle(390, 15, 400, 70);
 		do Screen.drawRectangle(390, 75, 400, 85);
 		do Sys.wait(150);
 
 		do Screen.drawRectangle(410, 15, 420, 70);
 		do Screen.drawRectangle(410, 75, 420, 85);
+		do Sys.wait(150);
+
+		do Screen.drawRectangle(430, 15, 440, 70);
+		do Screen.drawRectangle(430, 75, 440, 85);
 		do Sys.wait(750);
 
 		return;

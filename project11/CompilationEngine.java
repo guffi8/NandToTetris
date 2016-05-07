@@ -38,8 +38,8 @@ public class CompilationEngine {
 	
 	private static HashMap<String, String> unaryOpToCmd = new HashMap<>();
 	static {
-		opToCmd.put("-", "neg");
-		opToCmd.put("~", "not");
+		unaryOpToCmd.put("-", "neg");
+		unaryOpToCmd.put("~", "not");
 	}
 	
 	private static HashSet<String> osObjects = new HashSet<>();
@@ -52,6 +52,15 @@ public class CompilationEngine {
 		osObjects.add("Screen");
 		osObjects.add("Keyboard");
 		osObjects.add("Sys");
+	}
+	
+	private static HashSet<String> types = new HashSet<>();
+	static {
+		types.add("int");
+		types.add("char");
+		types.add("boolean");
+		types.add("Array");
+		types.add("String");
 	}
 
 	/* The tokenizer */
@@ -82,7 +91,7 @@ public class CompilationEngine {
 	}
 	
 	/**
-	 * Generate the XML file.
+	 * Generate the VM file.
 	 * @throws IOException
 	 */
 	public void generateVM() throws IOException {
@@ -101,18 +110,23 @@ public class CompilationEngine {
 		this.tokenizer.advance(); // class
 		this.tokenizer.advance(); // class name
 		this.className = this.tokenizer.identifier();
+		
 		this.tokenizer.advance(); // {
+		
+		//this.tokenizer.advance();
 		
 		while(this.tokenizer.hasMoreTokens()){
 			
 			this.tokenizer.advance();
 			
 			// if the class is over
+			
 			if(this.tokenizer.tokenType().equals(JackTokenizer.TT_SYMBOL)){
 				if(this.tokenizer.symbol().equals("}")){
 					break;
 				}	
 			}
+			
 			
 			
 			switch(this.tokenizer.tokenType()) {
@@ -128,7 +142,8 @@ public class CompilationEngine {
 					compileSubroutineDec();
 					break;
 				}
-			}	
+			}
+			
 			
 		}
 		
@@ -178,7 +193,13 @@ public class CompilationEngine {
 		this.ifLabelCounter = 0;
 		this.whileLabelCounter = 0;
 		
+		boolean isMethod = false;
+		
 		String subroutineType = this.tokenizer.keyWord();
+		
+		if(subroutineType.equals("method")) {
+			isMethod = true;
+		}
 
 		this.tokenizer.advance(); // return type
 		this.tokenizer.advance(); // function Name
@@ -186,7 +207,7 @@ public class CompilationEngine {
 		
 		this.tokenizer.advance(); // (
 		
-		complieParameterList();
+		complieParameterList(isMethod);
 		
 		this.tokenizer.advance(); // )
 	
@@ -213,6 +234,8 @@ public class CompilationEngine {
 		
 		compileStatements();
 		
+		this.tokenizer.advance(); // }
+		
 	}
 	
 	/**
@@ -234,10 +257,14 @@ public class CompilationEngine {
 	 * Compiles a (possibly empty) parameter list, not including the enclosing “ () ”.
 	 * @throws IOException
 	 */
-	private void complieParameterList() throws IOException {
+	private void complieParameterList(boolean isMethod) throws IOException {
 		
 		String type;
 		String name;
+		
+		if(isMethod) {
+			this.st.define("this", " ", IdentifierKind.ARG);
+		}
 		
 		while(this.tokenizer.hasMoreTokens()) {
 			
@@ -345,6 +372,7 @@ public class CompilationEngine {
 	 * @throws IOException
 	 */
 	private void compileLet() throws IOException {
+		
 		this.tokenizer.advance(); // let
 		this.tokenizer.advance(); // source name
 		String sourceName = this.tokenizer.identifier();
@@ -365,6 +393,7 @@ public class CompilationEngine {
 			
 			this.writer.writeArithmetic("add");
 			this.tokenizer.advance(); // = 
+			
 			compileExpression();
 			
 			this.writer.writePop(Segment.TEMP, 0);
@@ -393,13 +422,16 @@ public class CompilationEngine {
 	private void compileIf() throws IOException {
 		this.tokenizer.advance(); // if
 		
+		int currentIfCounter = this.ifLabelCounter;
+		this.ifLabelCounter++;
+		
 		this.tokenizer.advance(); // (
 		compileExpression();
 		this.tokenizer.advance(); // )
 		
-		this.writer.writeIf(CompilationEngine.IF_TURE_LABEL + Integer.toString(this.ifLabelCounter));
-		this.writer.writeGoto(CompilationEngine.IF_FALSE_LABEL + Integer.toString(this.ifLabelCounter));
-		this.writer.writeLabel(CompilationEngine.IF_TURE_LABEL + Integer.toString(this.ifLabelCounter));
+		this.writer.writeIf(CompilationEngine.IF_TURE_LABEL + Integer.toString(currentIfCounter));
+		this.writer.writeGoto(CompilationEngine.IF_FALSE_LABEL + Integer.toString(currentIfCounter));
+		this.writer.writeLabel(CompilationEngine.IF_TURE_LABEL + Integer.toString(currentIfCounter));
 		
 		this.tokenizer.advance(); // {
 		compileStatements();
@@ -407,20 +439,20 @@ public class CompilationEngine {
 		
 		// check if there is "else" statement
 		if(this.tokenizer.peekVal().equals("else")) {
-			this.writer.writeGoto(CompilationEngine.IF_END_LABEL + Integer.toString(this.ifLabelCounter));
-			this.writer.writeLabel(CompilationEngine.IF_FALSE_LABEL + Integer.toString(this.ifLabelCounter));
+			this.writer.writeGoto(CompilationEngine.IF_END_LABEL + Integer.toString(currentIfCounter));
+			this.writer.writeLabel(CompilationEngine.IF_FALSE_LABEL + Integer.toString(currentIfCounter));
 			this.tokenizer.advance(); // else
 			
 			this.tokenizer.advance(); // {
 			compileStatements();
 			this.tokenizer.advance(); // }
 			
-			this.writer.writeLabel(CompilationEngine.IF_END_LABEL + Integer.toString(this.ifLabelCounter));
+			this.writer.writeLabel(CompilationEngine.IF_END_LABEL + Integer.toString(currentIfCounter));
 		} else {
-			this.writer.writeLabel(CompilationEngine.IF_FALSE_LABEL + Integer.toString(this.ifLabelCounter));
+			this.writer.writeLabel(CompilationEngine.IF_FALSE_LABEL + Integer.toString(currentIfCounter));
 		}
 	
-		this.ifLabelCounter++;
+		//this.ifLabelCounter++;
 	}
 	
 	/**
@@ -430,7 +462,10 @@ public class CompilationEngine {
 	private void compileWhile() throws IOException {
 		this.tokenizer.advance(); // while
 		
-		this.writer.writeLabel(CompilationEngine.WHILE_EXP_LABEL + Integer.toString(this.whileLabelCounter));
+		int currentWhileCounter = this.whileLabelCounter;
+		this.whileLabelCounter++;
+		
+		this.writer.writeLabel(CompilationEngine.WHILE_EXP_LABEL + Integer.toString(currentWhileCounter));
 		
 		this.tokenizer.advance(); // (
 		compileExpression();
@@ -438,14 +473,14 @@ public class CompilationEngine {
 		
 		this.writer.writeArithmetic(CompilationEngine.opToCmd.get("~"));
 		
-		this.writer.writeIf(CompilationEngine.WHILE_END_LABEL + Integer.toString(this.whileLabelCounter));
+		this.writer.writeIf(CompilationEngine.WHILE_END_LABEL + Integer.toString(currentWhileCounter));
 		
 		this.tokenizer.advance(); // {
 		compileStatements();
 		this.tokenizer.advance(); // }
 		
-		this.writer.writeGoto(CompilationEngine.WHILE_EXP_LABEL + Integer.toString(this.whileLabelCounter));
-		this.writer.writeLabel(CompilationEngine.WHILE_END_LABEL + Integer.toString(this.whileLabelCounter));
+		this.writer.writeGoto(CompilationEngine.WHILE_EXP_LABEL + Integer.toString(currentWhileCounter));
+		this.writer.writeLabel(CompilationEngine.WHILE_END_LABEL + Integer.toString(currentWhileCounter));
 		
 	}
 	
@@ -492,11 +527,10 @@ public class CompilationEngine {
 	 */
 	private void compileExpression() throws IOException {
 		
-		//System.out.println("enter to exoression " + this.tokenizer.peekVal());
-		
 		String operation;
 		
 		compileTerm();
+		
 		while(JackTokenizer.op.contains(this.tokenizer.peekVal())) {
 			this.tokenizer.advance(); // operation
 			
@@ -504,7 +538,7 @@ public class CompilationEngine {
 			
 			compileTerm();
 			if(operation.equals("/")) {
-				this.writer.writeCall("Math.divede", 2);
+				this.writer.writeCall("Math.divide", 2);
 			} else if (operation.equals("*")) {
 				this.writer.writeCall("Math.multiply", 2);
 			} else {
@@ -524,33 +558,38 @@ public class CompilationEngine {
 		String objectName = this.tokenizer.identifier();
 		int argsNum = 0;
 		
+		String beforePeek = this.tokenizer.identifier();
+		
 		if(this.tokenizer.peekVal().equals(".")) {
 			
 			if(!(CompilationEngine.osObjects.contains(objectName))) {
-				objectName = this.st.typeOf(this.tokenizer.identifier());
+				objectName = this.st.typeOf(beforePeek);
 				if(objectName == null) {
-					objectName = this.tokenizer.identifier();
-				}
-				
-				IdentifierKind objKind = this.st.kindOf(this.tokenizer.identifier());
-				int objIndex = this.st.indexOf(this.tokenizer.identifier());
-				
-				if(objKind.equals(IdentifierKind.FIELD)) {
-					this.writer.writePush(Segment.THIS, objIndex);
+					objectName = beforePeek;
 				} else {
-					this.writer.writePush(Segment.getSegment(IdentifierKind.getValue(objKind)), objIndex);
+				
+					IdentifierKind objKind = this.st.kindOf(beforePeek);
+					
+					int objIndex = this.st.indexOf(beforePeek);
+					
+					if(objKind.equals(IdentifierKind.FIELD)) {
+						this.writer.writePush(Segment.THIS, objIndex);
+					} else {
+						this.writer.writePush(Segment.getSegment(IdentifierKind.getValue(objKind)), objIndex);
+					}
+					argsNum++;
 				}
-				argsNum++;
-			}
+			} 
 
-			
 			this.tokenizer.advance(); // .
 			this.tokenizer.advance(); // name
 			objectName += "." + this.tokenizer.identifier();
 			
 			
 		} else {
-			objectName = this.className + "." + this.tokenizer.identifier();
+			this.writer.writePush(Segment.POINTER, 0);
+			argsNum++;
+			objectName = this.className + "." + beforePeek;
 		}
 		
 		this.tokenizer.advance(); // (
@@ -573,32 +612,81 @@ public class CompilationEngine {
 	 */
 	private void compileTerm() throws IOException {
 		
-		
-		//System.out.println("enter term : " + this.tokenizer.peekType());
-		
 		switch(this.tokenizer.peekType()) {
 		
 		case JackTokenizer.TT_IDENTIFIER:
 			
-			IdentifierKind varKind = this.st.kindOf(this.tokenizer.peekVal());
+			String beforePeek = this.tokenizer.peekVal();
+					
+			IdentifierKind varKind = this.st.kindOf(beforePeek);
 		
-			int varIndex = this.st.indexOf(this.tokenizer.peekVal());
+			int varIndex = this.st.indexOf(beforePeek);
 			if(varKind == null) {
 				compileSubroutineCall();
 			} else {
 				this.tokenizer.advance(); // varName
-				if(this.tokenizer.peekVal().equals("[")) {
+				
+				beforePeek = this.tokenizer.identifier();
+							
+				if(this.tokenizer.peekVal().equals(".") || this.tokenizer.peekVal().equals("(")) {
+					
+					String objectName = beforePeek;
+					int argsNum = 0;
+					
+					
+					if(this.tokenizer.peekVal().equals(".")) {
+						
+						if(!(CompilationEngine.osObjects.contains(objectName))) {
+							objectName = this.st.typeOf(beforePeek);
+							if(objectName == null) {
+								objectName = beforePeek;
+							} else {
+							
+								IdentifierKind objKind = this.st.kindOf(beforePeek);
+								
+								int objIndex = this.st.indexOf(beforePeek);
+								
+								if(objKind.equals(IdentifierKind.FIELD)) {
+									this.writer.writePush(Segment.THIS, objIndex);
+								} else {
+									this.writer.writePush(Segment.getSegment(IdentifierKind.getValue(objKind)), objIndex);
+								}
+								argsNum++;
+							}
+							
+						}
+
+						
+						this.tokenizer.advance(); // .
+						this.tokenizer.advance(); // name
+						objectName += "." + this.tokenizer.identifier();
+						
+						
+					} else {
+						this.writer.writePush(Segment.POINTER, 0);
+						argsNum++;
+						objectName = this.className + "." + beforePeek;
+					}
+					
+					this.tokenizer.advance(); // (
+					argsNum += compileExpressionList();
+					this.tokenizer.advance(); // )
+					
+					this.writer.writeCall(objectName, argsNum);
+					
+				} else if(this.tokenizer.peekVal().equals("[")) {
 					this.tokenizer.advance(); // [
 					compileExpression();
 					this.tokenizer.advance(); // ]
 					if(varKind.equals(IdentifierKind.FIELD)) {
-						this.writer.writePush(Segment.THIS, varIndex);
+						this.writer.writePush(Segment.THIS, varIndex);	
 					} else {
 						this.writer.writePush(Segment.getSegment(IdentifierKind.getValue(varKind)), varIndex);
 					}
 					this.writer.writeArithmetic("add");
 					this.writer.writePop(Segment.POINTER, 1);
 					this.writer.writePush(Segment.THAT, 0);
+
 				} else {
 					if(varKind.equals(IdentifierKind.FIELD)) {
 						this.writer.writePush(Segment.THIS, varIndex);
@@ -628,7 +716,7 @@ public class CompilationEngine {
 				this.writer.writePush(Segment.CONST, 0);
 				break;
 			case "this":
-				this.writer.writePush(Segment.THIS, 0);
+				this.writer.writePush(Segment.POINTER, 0);
 				break;
 			}
 			break;
@@ -658,7 +746,13 @@ public class CompilationEngine {
 				this.tokenizer.advance(); // - | ~
 				String unaryOp = this.tokenizer.symbol();
 				compileTerm();
-				this.writer.writeArithmetic(CompilationEngine.unaryOpToCmd.get(unaryOp));
+				if(unaryOp.equals("~")) {
+					
+					this.writer.writeArithmetic("not");
+				} else if(unaryOp.equals("-")) {
+					this.writer.writeArithmetic("neg");
+				}
+				
 				break;
 			}
 			

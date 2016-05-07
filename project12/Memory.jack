@@ -58,11 +58,16 @@ class Memory {
 		var Array traveler, prevBlock, newBlock;
 		
 		let traveler = freeList;
-		while(~(traveler[BLOCK_LENGTH] > size)) {
+		while(~(traveler[BLOCK_LENGTH] > size) & ~(traveler = null)) {
 		
 			let prevBlock = traveler;
 			let traveler = traveler[NEXT_BLOCK];
 		}
+
+		if(traveler = null) {
+			return null;
+		}		
+	
 		if(~(traveler[BLOCK_LENGTH] = (size + 1))) {	
 			let newBlock = prevBlock[NEXT_BLOCK] + size + 1;
 			let newBlock[BLOCK_LENGTH] = traveler[BLOCK_LENGTH] - size - 1;

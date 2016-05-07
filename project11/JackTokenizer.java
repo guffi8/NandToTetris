@@ -128,6 +128,40 @@ public class JackTokenizer {
 		this.reader.close();
 	}
 	
+	
+public String peekTwiceVal(){
+		
+		int preToken = this.currentToken;
+		String res = "";
+		if(hasMoreTokens()){
+			advance();
+			advance();
+			switch (tokenType()) {
+			case JackTokenizer.TT_IDENTIFIER:
+				res = identifier();
+				break;
+			case JackTokenizer.TT_INT_COSNT:
+				res = String.valueOf(intVal());
+				break;
+			case JackTokenizer.TT_KEYWORD:
+				res = keyWord();
+				break;
+			case JackTokenizer.TT_STRING_CONST:
+				res = stringVal();
+				break;
+			case JackTokenizer.TT_SYMBOL:
+				res = symbol();
+				break;
+			}
+			
+			this.tokenizer.pushBack();
+			this.tokenizer.pushBack();
+			this.currentToken = preToken;
+		}
+		return res;
+	}
+	
+	
 	/**
 	 * peekVal - return the value of the next tokken without moving to it.
 	 */ 

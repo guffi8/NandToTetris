@@ -1,0 +1,17 @@
+yuval1488, guffi
+
+
+                           Project 9 - High Level Programming
+                           ---------------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Main.jack - The main class.
+Snake.jack - The class that represent a snake.
+SnakeGame.jack - The class that manage the game
+
+Remarks
+-------
+* We choose to implement snake game.

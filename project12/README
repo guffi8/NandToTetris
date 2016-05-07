@@ -1,8 +1,5 @@
 yuval1488, guffi
-===============================================================================
-Yuval Shavit, 
-Eric Gofman,  
-===============================================================================
+
 
                           Project 12 - Operating System
                           -----------------------------
@@ -23,10 +20,12 @@ Sys.jack - A library of basic system services.
 Remarks
 -------
 
-In Math.jack libary we add 3 more functions:
+In Math.jack libary we add 4 more functions:
 [1] shiftRight - Shifting right given number to for given bits. 
 [2] shiftLeft - Shifting left given number to for given bits.
 [3] bit - Getting a number and index i and return true if the i's bit of the 
 	given number is 1, false otherwise.
+[4] moduloPowerOfTwo - Get 2 numbers: num and modulo and return num % modulo such that
+	modulo is a power of two number.
 	
 	

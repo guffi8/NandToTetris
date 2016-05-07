@@ -1,0 +1,23 @@
+yuval1488, guffi
+
+
+                          Project 10 - Compilation.
+                          ------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Makefile - Compile the program.
+JackTokenizer.java - Removes all comments and white space from the input stream and 
+	breaks it into Jack-language tokens, as specified by the Jack grammar.
+JackAnalyzer.java - The main class. Gets the path of the .jack file or directory 
+	with .jack files and generate .xml file for each .jac file.
+CompilationEngine.java - Effects the actual compilation output.
+JackReader.java - Deligate the buffer reader - for handeling with the tab problem.
+JackAnalyzer - The script that run the program.
+
+Remarks
+-------
+We choose to implement this project in java using the recommended API from the course's 
+book.

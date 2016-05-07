@@ -1,4 +1,6 @@
-
+/**
+ * The enum of Tdentefier kind
+ */
 public enum IdentifierKind {
 	STATIC("static"), FIELD("field"), ARG("argument"), VAR("local");
 	

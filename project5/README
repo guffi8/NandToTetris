@@ -1,0 +1,20 @@
+yuval1488, guffi
+
+
+                           Project 5 - Computer Architecture
+                           ---------------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Memory.hdl - Entire RAM address space.
+CPU.hdl - The Hack CPU.
+Computer.hdl - The platform's top-most chip
+ExtendAlu.hdl - Extend version of Alu.
+CpuMul.hdl - This chip is an extension of the book CPU by using the extended ALU. 
+shiftLeft.hdl - shift left chip.
+shiftRight.hdl - shift right chip.
+Mul.hdl - mult 2 16-bit numbers.
+
+

@@ -89,7 +89,7 @@ class Snake {
 				let snakeY[i] = snakeY[i - 1];
 				
 				// check if the snake is still in the screen.
-				if((snakeX[i] + width) > (512)) {
+				if((snakeX[i] + width) > (511)) {
 					let continue = false;
 					return false;
 				}
@@ -137,7 +137,7 @@ class Snake {
 		do Screen.clearScreen();
 		do drawSnake();
 		
-		do Sys.wait(40);
+		do Sys.wait(100 - length);
 
 		return true;
 

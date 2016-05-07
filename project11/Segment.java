@@ -1,7 +1,9 @@
-
+/**
+ * The enum of variable segment
+ */
 public enum Segment {
 	
-	CONST("constant"), ARG("argumant"), LOCAL("local"), 
+	CONST("constant"), ARG("argument"), LOCAL("local"), 
 	STATIC("static"), THIS("this"), THAT("that"),
 	POINTER("pointer"), TEMP("temp");
 	

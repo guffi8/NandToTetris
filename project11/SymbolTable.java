@@ -1,6 +1,10 @@
 import java.util.HashMap;
 
-
+/**
+ * Provides a symbol table abstraction. The symbol table associates the identifier names 
+ * found in the program with identifier properties needed for compilation: type, kind, 
+ * and running index. The symbol table for Jack programs has two nested scopes (class / subroutine).
+ */
 public class SymbolTable {
 	
 		private static class VarInfo {
@@ -38,7 +42,9 @@ public class SymbolTable {
 		private int localIndex;
 		private int argIndex;
 		
-		
+		/**
+		 * Creates a new empty symbol table.
+		 */
 		public SymbolTable() {
 			this.classScope = new HashMap<>();
 			this.subroutineScope = new HashMap<>();
@@ -49,6 +55,9 @@ public class SymbolTable {
 			this.argIndex = 0;
 		}
 		
+		/**
+		 * Starts a new subroutine scope (i.e. resets the subroutine’s symbol table.)
+		 */
 		public void startSubroutine() {
 			this.subroutineScope.clear();
 			this.localIndex = 0;
@@ -56,6 +65,10 @@ public class SymbolTable {
 			this.isSubroutine = true;
 		}
 		
+		/**
+		 * Returns the number of variables of the given kind already 
+		 * defined in the current scope after increasing it in 1.
+		 */
 		private int getKindIndex(IdentifierKind kind) {
 			
 			int index;
@@ -86,6 +99,11 @@ public class SymbolTable {
 			return index;
 		}
 		
+		/**
+		 * Defines a new identifier of a given name, type, and kind and assigns it a 
+		 * running index. STATIC and FIELD identifiers have a class scope, while ARG 
+		 * and VAR identifiers have a subroutine scope.
+		 */
 		public void define(String name, String type, IdentifierKind kind) {
 			VarInfo newElement = new VarInfo(type, kind, getKindIndex(kind));
 			if(!isSubroutine) {
@@ -95,6 +113,10 @@ public class SymbolTable {
 			}
 		}
 		
+		/**
+		 * Returns the number of variables of the given kind already defined in 
+		 * the current scope.
+		 */
 		public int varCount(IdentifierKind kind) {
 			
 			switch(kind) {
@@ -111,6 +133,10 @@ public class SymbolTable {
 			}
 		}
 		
+		/**
+		 * Returns the kind of the named identifier in the current scope. If 
+		 * the identifier is unknown in the current scope, returns NONE .
+		 */
 		public IdentifierKind kindOf(String name) {
 
 			// if the var name in the subroutine
@@ -123,6 +149,9 @@ public class SymbolTable {
 			return null;
 		}
 		
+		/**
+		 * Returns the type of the named identifier in the current scope.
+		 */
 		public String typeOf(String name) {
 
 			// if the var name in the subroutine
@@ -135,6 +164,9 @@ public class SymbolTable {
 			return null;
 		}
 		
+		/**
+		 * Returns the index assigned to the named identifier.
+		 */
 		public int indexOf(String name) {
 
 			// if the var name in the subroutine

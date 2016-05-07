@@ -63,6 +63,101 @@ public class CodeWriter {
 	}
 	
 	/**
+	 * Write a difference arithmetic (JEQ, JGT, JLT). First check the sign of each element. If both
+	 * has the same sign, subtract between them and compare to zero. Otherwise, return push true or
+	 * false to the stack according to the signs.  
+	 * 
+	 * @param command The arithmetic command.
+	 */
+	private void writeDifferenceArithmetic(String command) {
+		this.code += "@SP\n" + 
+					 "A=M\n" + 
+					 "D=M\n" + 
+					 "@Y_POSITIVE_" + Integer.toString(this.labelCounter) + "\n" + 
+					 "D;JGE\n" + 
+					 "@R14\n" + // True if Y is positive
+					 "M=0\n" + 
+					 "@Y_NEGATIVE_" + Integer.toString(this.labelCounter) + "\n" +
+					 "0;JMP\n" + 
+					 "(Y_POSITIVE_" + Integer.toString(this.labelCounter) + ")\n" + 
+					 "@R14\n" + 
+					 "M=-1\n" + 
+					 "(Y_NEGATIVE_" + Integer.toString(this.labelCounter) + ")\n" + 
+					 "@SP\n" + 
+					 "A=M-1\n" + 
+					 "D=M\n" + 
+					 "@X_POSITIVE_" + Integer.toString(this.labelCounter) + "\n" + 
+					 "D;JGE\n" + 
+					 "@R13\n" + // True if X is positive
+					 "M=0\n" + 
+					 "@X_NEGATIVE_" + Integer.toString(this.labelCounter) + "\n" +
+					 "0;JMP\n" + 
+					 "(X_POSITIVE_" + Integer.toString(this.labelCounter) + ")\n" + 
+					 "@R13\n" + 
+					 "M=-1\n" + 
+					 "(X_NEGATIVE_" + Integer.toString(this.labelCounter) + ")\n" + 
+					 "@R13\n" + 
+					 "D=M\n" + 
+					 "@R14\n" + 
+					 "D=D-M\n"; // sign(X) - sign(y)
+		switch(command) {
+		case CodeWriter.EQUALE:
+			this.code += "@FALSE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
+						 "D;JNE\n";
+			break;
+		case CodeWriter.LOWER_THAN:
+			this.code += "@TRUE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
+					 	 "D;JGT\n" + 
+					 	 "@FALSE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
+						 "D;JLT\n";
+			break;
+		case CodeWriter.GREATER_THAN:
+			this.code += "@TRUE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
+					 	 "D;JLT\n" + 
+					 	 "@FALSE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
+						 "D;JGT\n";
+			break;
+		}
+		
+		this.code += "@SP\n" + 
+					 "A=M\n" + 
+					 "D=M\n" +
+					 "@SP\n" + 
+					 "A=M-1\n" + 
+					 "D=M-D\n" + 
+					 "@TRUE_LABEL_" + Integer.toString(this.labelCounter) + "\n";
+		
+		switch(command) {
+		case CodeWriter.EQUALE:
+			this.code += "D;JEQ\n";
+			break;
+		case CodeWriter.LOWER_THAN:
+			this.code += "D;JLT\n";
+			break;
+		case CodeWriter.GREATER_THAN:
+			this.code += "D;JGT\n";
+			break;
+		} 
+				 	 
+		this.code += "@FALSE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
+					 "D;JMP\n" + 
+				 	 "(TRUE_LABEL_" + Integer.toString(this.labelCounter) + ")\n" +
+					 "@SP\n" + 
+				 	 "A=M-1\n" + 
+					 "M=-1\n" + 
+				 	 "@END_" + Integer.toString(this.labelCounter) + "\n" + 
+					 "0;JMP\n" + 
+					 "(FALSE_LABEL_" + Integer.toString(this.labelCounter) + ")\n" +
+					 "@SP\n" + 
+				 	 "A=M-1\n" + 
+					 "M=0\n" + 
+					 "(END_" + Integer.toString(this.labelCounter) + ")\n"; 
+		
+		this.labelCounter++;
+					 
+	}
+	
+	/**
 	 * Writes the assembly code that is the translation of the given arithmetic command.
 	 * 
 	 * @param command The arithmetic command.
@@ -89,27 +184,9 @@ public class CodeWriter {
 			else if(command.equals(CodeWriter.OR))
 				this.code += "M=M|D\n";
 			else {
-				this.code += "D=M-D\n" + 
-							 "@TRUE_LABEL_" + Integer.toString(this.labelCounter) + "\n";
-				if(command.equals(CodeWriter.EQUALE))
-					this.code += "D;JEQ\n";
-				else if(command.equals(CodeWriter.GREATER_THAN))
-					this.code += "D;JGT\n";
-				else if(command.equals(CodeWriter.LOWER_THAN))
-					this.code += "D;JLT\n";
-				this.code += "@SP\n" +
-							 "A=M-1\n" + 
-							 "M=0\n" + 
-							 "@FALSE_LABEL_" + Integer.toString(this.labelCounter) + "\n" + 
-							 "0;JMP\n" +
-							 "(TRUE_LABEL_" + Integer.toString(this.labelCounter) + ")\n" +
-							 "@SP\n" +
-							 "A=M-1\n" + 
-							 "M=-1\n" +
-							 "(FALSE_LABEL_" + Integer.toString(this.labelCounter) + ")\n";
-				
-				this.labelCounter++;			 
+				writeDifferenceArithmetic(command);
 			}
+			
 		}
 	}
 	

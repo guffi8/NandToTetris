@@ -67,11 +67,11 @@ class Screen {
 		var int pix;
 		var int bitToColor;
 		var int temp;
-		let col = Math.shiftLeft(x, 4);
-		
+
+		let col = Math.shiftLeft(x, 4);		
 		let row = Math.shiftRight(y, 5);	
 		let pix = Memory.peek(screen + col + row);
-		let bitToColor = x - (Math.shiftRight(col, 4));
+		let bitToColor = Math.moduloPowerOfTwo(x, 16); // x % 16
 
 	
 		if(color) {		
@@ -103,7 +103,6 @@ class Screen {
 		let dy = (y2 - y1);
 		
 		if((dx = 0) & (dy = 0)) {
-			//do Screen.drawPixel(x1, y1);
 			return;
 		}
 		

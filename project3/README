@@ -1,0 +1,30 @@
+yuval1488, guffi
+===============================================================================
+
+===============================================================================
+
+                           Project 2 -Boolean Arithmetic
+                           ----------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Folder a:
+	Bit.hdl - 1-bit register.
+	Register.hdl - 16-bit register.
+	RAM8.hdl - Memory of 8 registers, each 16 bit-wide. Out holds the value stored at 
+		the memory location specified by address.
+	RAM64.hdl - Memory of 64 registers, each 16 bit-wide. Out holds the value stored at 
+		the memory location specified by address.
+	PC.hdl - A 16-bit counter with load and reset control bits.
+Folder b:
+	RAM512.hdl - Memory of 512 registers, each 16 bit-wide. Out holds the value stored
+		at the memory location specified by address
+	RAM4K.hdl - Memory of 4K registers, each 16 bit-wide. Out holds the value stored
+		at the memory location specified by address
+	RAM16K.hdl - Memory of 16K registers, each 16 bit-wide. Out holds the value stored
+		at the memory location specified by address
+
+Remarks
+-------

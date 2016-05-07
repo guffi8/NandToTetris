@@ -8,8 +8,12 @@
 
 	@2
     	M = 0 // initialize sum
-(LOOP)
 	@1
+	D = M
+	@temp
+	M = D
+(LOOP)
+	@temp
 	D = M
 	@END
 	D;JEQ // check if R1 < 0
@@ -17,7 +21,7 @@
 	D = M
 	@2
 	M = M + D // add R0 to R2
-	@1
+	@temp
 	M = M - 1 // reduce 1 from R1 
 	@LOOP
 	0;JMP

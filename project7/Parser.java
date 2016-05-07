@@ -19,7 +19,7 @@ public class Parser {
 	private Matcher firstWordMatch;
 	
 	/** The regex that catch the first word in the command */
-	private final String commandRegex = "(^[^\\s]*)\\s*([^\\s]*)\\s*([0-9]+)";
+	private final String commandRegex = "(^[^\\s]*)\\s*([^\\s]*)\\s*(-?[0-9]+)";
 	private Matcher commandRegexMatch;
 	
 	private Scanner file;

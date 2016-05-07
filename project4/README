@@ -1,0 +1,40 @@
+yuval1488, guffi
+
+                           Project 4 -Machine Language.
+                           ---------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Folder divide:
+	Divide.asm - Divide two numbers in logorithmic time
+Folder sort:
+	Sort.asm - Sort an array in descending order
+Folder fill:
+	Fill.asm - Blackening the screen by a key press
+Folder mult:
+	Mult.asm - multiplie 2 numbers.
+
+Remarks
+-------
+Divide.asm - 
+Receive 2 inputes into RAM[13], RAM[14] and put the divide resault into RAM[15]. The divide operation 
+took a logaritmic time.
+
+Sort.asm - 
+The program will sort an array from an adress that we recieve from RAM[14], in length that inputs 
+into RAM[15]. The sorting is done in descending order.
+
+Fill.asm - 
+This program illustrates low-level handling of the screen and keyboard devices. In particulate, 
+the program runs an infinite loop that listens to the keyboard input. When a key is pressed 
+(any key), the program blackens the screen, i.e. writes "black" in every pixel. When no key is 
+pressed, the program clears the screen, i.e. writes "white" in every pixel.
+
+Mult.asm - 
+In the Hack framework, the top 16 RAM words (RAM[0] ... RAM[15]) are also referred to as the 
+so-called virtual registers R0 ... R15. With this terminology in mind, this program computes the 
+value R0*R1 and stores the result in R2.
+
+

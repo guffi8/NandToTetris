@@ -1,0 +1,27 @@
+yuval1488, guffi
+
+
+                           Project 6 - Assembler
+                           --------------------- 
+  
+
+Submitted Files
+---------------
+README - This file.
+Makefile - Compile the program.
+Assembler - The script that running the program.
+Assembler.java - The main.
+Code.java - Translates Hack assembly language mnemonics into binary codes.
+CodeInterface.java - The interface of the Code module.
+Parder.java - Encapsulates access to the input code. Reads an assembly language command,
+	parses it, and provides convenient access to the command’s components
+	(fields and symbols). In addition, removes all white space and comments.
+ParserInterface.java - The interface of the Parder module.
+SymbolTable.java - Keeps a correspondence between symbolic labels and numeric addresses.
+SymbolTableInterface.java - The interface of the SymbolTable module.
+
+
+Remarks
+-------
+We choose to implement this project in java using the recommended API from the course's 
+book.

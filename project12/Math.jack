@@ -189,4 +189,9 @@ class Math {
 		
 		return res;
     }
+    
+    /** return num % modulo */
+    function int moduloPowerOfTwo(int num, int modulo) {
+		return (num & (modulo - 1));
+    }
 }

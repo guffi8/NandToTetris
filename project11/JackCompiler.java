@@ -5,8 +5,8 @@ import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 
 /**
- * The main class. gets the path of the .jack file or directory with .jack files and generate .xml 
- * file for each .jac file.
+ * The main class. gets the path of the .jack file or directory with .jack files and generate .vm 
+ * file for each .jack file.
  * 
  * @author yuval & eric
  *
@@ -38,7 +38,7 @@ public class JackCompiler {
 				}
 			}
 			
-			// generate a .xml file for every .jack file.
+			// generate a .vm file for every .jack file.
 			for(File file : files) {
 				tokenizer = new JackTokenizer(file);
 				xmlFilePath = file.getAbsolutePath().replace(JACK_FILE_SUFFIX, VM_FILE_SUFFIX);

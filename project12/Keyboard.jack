@@ -73,7 +73,7 @@ class Keyboard {
 		if(c = String.newLine()) {
 			do Output.println();
 		} else {	
-			if(~(c = String.backSpace())) {
+			if((c > 31) & (c < 128)) {
 				do Output.printChar(c);
 			}
 		}
@@ -113,7 +113,7 @@ class Keyboard {
 				let cursor = cursor - 1;
 			
 			} else {
-				if(~(c = String.backSpace())) {
+				if((c > 31) & (c < 128)) {
 					do s.appendChar(c);
 					let cursor = cursor + 1;
 				}

@@ -20,6 +20,8 @@
 	D;JNE
 	@CLEANED
 	D;JEQ
+	@LOOP
+	0;JMP
 
 (BLACKEN) // Draw on the screen
 

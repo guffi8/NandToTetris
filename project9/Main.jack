@@ -7,8 +7,10 @@ class Main {
 	function void main() {
 
 		var SnakeGame game;
+		var int length;
+		var int width;
 
-		let game = SnakeGame.new(25, 5);
+		let game = SnakeGame.new();
 		do game.run();
 
 		do game.dispose();
